@@ -23,13 +23,13 @@ pipeline {
 
         stage('Tag Image') {
             steps {
-                sh 'docker tag node-app:v1 $DOCKER_USER/$IMAGE_NAME:v1'
+                sh 'docker tag node-app:v1 $DOCKER_USER/$IMAGE_NAME:v2'
             }
         }
 
         stage('Push to Docker Hub') {
             steps {
-                sh 'docker push $DOCKER_USER/$IMAGE_NAME:v1'
+                sh 'docker push $DOCKER_USER/$IMAGE_NAME:v2'
             }
         }
 
@@ -38,7 +38,7 @@ pipeline {
                 sh '''
                 docker stop node-container || true
                 docker rm node-container || true
-                docker run -d -p 8082:8080 --name node-container $DOCKER_USER/$IMAGE_NAME:v1
+                docker run -d -p 8082:8080 --name node-container $DOCKER_USER/$IMAGE_NAME:v2
                 '''
             }
         }
