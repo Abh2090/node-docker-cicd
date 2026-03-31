@@ -37,9 +37,9 @@ pipeline {
              steps {
                  sh '''
                  export KUBECONFIG=/root/.kube/config
-                 sh 'kubectl apply -f deployment.yaml'
-                 sh 'kubectl apply -f service.yaml'
-                 sh 'kubectl rollout restart deployment node-app'
+                 sh kubectl apply -f deployment.yaml
+                 sh kubectl apply -f service.yaml
+                 sh kubectl rollout restart deployment node-app
                  '''
              }
         }
