@@ -1,45 +1,36 @@
-
 pipeline {
     agent any
 
     environment {
-        DOCKER_USER = "abhirocks493"
-        IMAGE_NAME = "node-app-cicd"
+        DOCKER_IMAGE = "abhirocks493/node-app"
+        DOCKER_CREDENTIALS_ID = "dockerhub-creds"
     }
 
     stages {
 
-        stage('Clone Code') {
+        stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/Abh2090/node-docker-cicd.git'
+                git 'https://github.com/Abh2090/node-docker-cicd.git'
             }
         }
 
-        stage('Build Image') {
+        stage('Build Docker Image') {
             steps {
-                sh 'docker build --no-cache -t node-app:v1 .'
+                sh 'docker build -t $DOCKER_IMAGE .'
             }
         }
 
-        stage('Tag Image') {
+        stage('Login to DockerHub') {
             steps {
-                sh 'docker tag node-app:v1 $DOCKER_USER/$IMAGE_NAME:v2'
+                withCredentials([usernamePassword(credentialsId: "$DOCKER_CREDENTIALS_ID", usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh 'echo $PASS | docker login -u $USER --password-stdin'
+                }
             }
         }
 
-        stage('Push to Docker Hub') {
+        stage('Push to DockerHub') {
             steps {
-                sh 'docker push $DOCKER_USER/$IMAGE_NAME:v2'
-            }
-        }
-
-        stage('Deploy Container') {
-            steps {
-                sh '''
-                docker stop node-container || true
-                docker rm node-container || true
-                docker run -d -p 8082:8080 --name node-container $DOCKER_USER/$IMAGE_NAME:v2
-                '''
+                sh 'docker push $DOCKER_IMAGE'
             }
         }
     }
