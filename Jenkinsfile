@@ -10,7 +10,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/Abh2090/node-docker-cicd.git'
+                git branch: 'main', url: 'https://github.com/Abh2090/node-docker-cicd.git'
             }
         }
 
