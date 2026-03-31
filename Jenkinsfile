@@ -39,7 +39,7 @@ pipeline {
                  export KUBECONFIG=/home/abhijit/.kube/config
                  kubectl apply -f deployment.yaml
                  kubectl apply -f service.yaml
-                 kubectl rollout restart deployment node-app
+                 kubectl rollout restart deployment node-app-deployment
                  '''
              }
         }
