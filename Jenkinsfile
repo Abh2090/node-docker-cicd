@@ -40,6 +40,7 @@ pipeline {
                  sh 'kubectl apply -f deployment.yaml'
                  sh 'kubectl apply -f service.yaml'
                  sh 'kubectl rollout restart deployment node-app'
+                 '''
              }
         }
     }
