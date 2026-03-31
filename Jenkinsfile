@@ -36,10 +36,10 @@ pipeline {
         stage('Deploy to Kubernetes') {
              steps {
                  sh '''
-                 pwd
-                 ls -l
-                 export KUBECONFIG=/root/.kube/config
+                 export KUBECONFIG=/home/abhijit/.kubeconfig
                  kubectl apply -f deployment.yaml
+                 kubectl apply -f service.yaml
+                 kubectl rollout restart deployment node-app
                  '''
              }
         }
