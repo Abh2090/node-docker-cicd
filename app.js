@@ -1,7 +1,7 @@
 const http = require("http");
 
 http.createServer((req, res) => {
-	res.end(" 🚀kubernetes deployment using git hub auto trigger ");
+	throw new Error("App broken!);
 }).listen(8080, () => {
 	console.log("Server running on port 8080");
 });
