@@ -2,13 +2,10 @@ FROM node:18
 
 WORKDIR /app
 
-COPY package.json ./
-
-RUN npm install
-
 COPY . .
 
-EXPOSE 8080
+ARG VERSION
+ENV VERSION=$VERSION
 
 CMD ["node", "app.js"]
 

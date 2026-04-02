@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: node-app-green
+  name: node-app-green
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-app-green
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: node-app-green
+    spec:
+      containers:
+      - image: abhirocks493/node-app:latest
+        name: node-app
+        resources: {}
+status: {}

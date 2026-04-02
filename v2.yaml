@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-app
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: node-app
+        version: v2
+    spec:
+      containers:
+      - name: node-app
+        image: abhirocks493/node-app:v2
+        ports:
+          - containerPort: 8080
